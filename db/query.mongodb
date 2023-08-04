@@ -1,0 +1,69 @@
+use("dbexpress");
+
+use("dbexpress");
+db.createCollection('usuario',{
+    capped:true,
+    size:690,
+    max:5,
+    validator:{
+        $jsonSchema:{
+            bsonType:"object",
+            required:["Nombre","Apellido","Edad"],
+            properties:{
+                Nombre:{
+                    bsonType:"string",
+                    description: "El formato del campo nombre no es correcto"
+                },
+                Apellido:{
+                    bsonType:"string",
+                    description:"El parametro nombre no cumpel con los requerimientos espesificos"
+                },
+                Edad:{
+                    bsonType:"int",
+                    minimum:0,
+                    maximum:120,
+                    description:"el Campo edad no cumple con los requerimientos estalbesidos"
+                },
+            },
+        },
+    },
+});
+
+
+
+
+use('dbexpress');
+db.usuario.insertOne({
+    Nombre:"Jhon2",
+    Apellido:"Hernandez",
+    Edad:300
+})
+
+
+use('dbexpress');
+db.usuario.drop();
+
+
+
+use('dbexpress');
+
+db.usuario.insertMany([
+    {
+        Nombre:"Miguel",
+        Apellido:"Hernandez",
+        Edad:12
+    },
+    {
+        Nombre:"Miguel_2",
+        Apellido:"Hernandez_2",
+        Edad:12
+    },
+    {
+        Nombre:"Miguel_3",
+        Apellido:"Hernandez_3",
+        Edad:12
+    }
+]);
+
+use('dbexpress');
+db.usuario.find();
